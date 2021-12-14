@@ -1,0 +1,62 @@
+<html>
+<head>
+<!-- commenting out auto-refresh
+<meta http-equiv="refresh" content="30">
+-->
+<title>
+<?php
+if (defined('title')) {
+	print title;
+} else {
+	print 'HDW.Tracker';
+}
+?>
+</title>
+<div style="background-color:black; padding:5px; text-align:center; position:sticky; top:0;">
+<h2>HarDWare Dashboard</h2>
+</div>
+<style>
+body {
+        margin: 0;
+        padding: 0px;
+        background-color: grey;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+}
+
+ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        min-width: 10%;
+        background-color: #3c3c3c;
+	font-size: 15px;
+        position: fixed;
+        height: 100%;
+        overflow: auto;
+}
+
+li a {
+        display: block;
+        color: red;
+        font-weight: bold;
+        padding: 8px 16px;
+        text-decoration: none;
+}
+
+li a:hover {
+        background-color: #555;
+        color: white;
+}
+
+table, th {
+        text-align: left;
+}
+
+td {
+        text-align: left;
+}
+
+</style>
+</head>

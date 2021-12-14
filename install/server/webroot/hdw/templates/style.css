@@ -1,0 +1,36 @@
+body {
+	margin: 0;
+	padding: 0px;
+	background-color: #595959;
+        color: white;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 15%;
+	background-color: #3c3c3c;
+	position: fixed;
+	height: 100%;
+	overflow: auto;
+}
+
+li a {
+	display: block;
+	color: red;
+	font-weight: bold;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+
+li a:hover {
+	background-color: #555;
+	color: white;
+}
+
+table, th {
+	text-align: left;
+}

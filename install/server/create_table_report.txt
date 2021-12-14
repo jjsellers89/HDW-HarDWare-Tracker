@@ -1,0 +1,12 @@
+CREATE TABLE `report` (
+  `reportid` int(11) NOT NULL AUTO_INCREMENT,
+  `ObservedSelector` varchar(17) DEFAULT NULL,
+  `observedtime` datetime DEFAULT NULL,
+  `reportedtime` datetime DEFAULT NULL,
+  `SelectorType` varchar(10) DEFAULT NULL,
+  `NodeID` varchar(10) DEFAULT NULL,
+  `gps_lat` varchar(50) DEFAULT NULL,
+  `gps_lon` varchar(50) DEFAULT NULL,
+  `Acknowledged` varchar(1) DEFAULT 'N',
+  PRIMARY KEY (`reportid`)
+);

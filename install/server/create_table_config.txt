@@ -1,0 +1,12 @@
+CREATE TABLE `config` (
+  `NodeId` int(11) NOT NULL,
+  `CollectInterval` int(11) NOT NULL DEFAULT 30,
+  `ReportInterval` int(11) NOT NULL DEFAULT 30,
+  `CheckinInterval` int(11) NOT NULL DEFAULT 60,
+  `WifiSTA_Active` tinyint(1) NOT NULL DEFAULT 0,
+  `WifiAP_Active` tinyint(1) NOT NULL DEFAULT 0,
+  `BT_Active` tinyint(1) NOT NULL DEFAULT 0,
+  `heartbeat_URL` varchar(100) DEFAULT NULL,
+  `checkin_URL` varchar(100) DEFAULT NULL,
+  `report_URL` varchar(100) DEFAULT NULL
+);

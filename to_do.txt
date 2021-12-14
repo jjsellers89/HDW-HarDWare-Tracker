@@ -1,0 +1,19 @@
+### To do:
+- Miscellaneous HDWD testing
+- Auto-start HarDWare Daemon on boot (service?)
+- Further "reporting" testing (which scenarios will result in loss of data when internet is unreachable? The existing issues have been fixed and no further issues observed)
+- Enable backoff interval (between collect cycles). Current backoff is equal to CollectInterval. (I.e., collect runs for $CollectInterval time and then pauses for $CollectInterval time)
+- Improve dashboard display (I.e., custom number of results per page, multiple pages, auto-refresh page option)
+- Create auto-install scripts for node/server. Installation is currently via manual copy/paste steps.
+- Add RSSI column to dashboard
+- Add ESSID column to dashboard
+- Option to export reports
+- Option to export KML (for mapping purposes)
+- Enable node authentication (AuthorizedNodes table?)
+- MAC blacklisting? (I.e., do not collect on certain AP/BSSIDs or Station MACs)
+- Add in configurable WireGuard taskings (to enable remote tunneling/access node shell for follow-on tasks)
+
+### Observed issues:
+- GPS reporting.. 0.005 and empty lat/lon entries (haven't been able to reproduce, but it also has not happened again)
+
+### Improve the demo slides/info sheets

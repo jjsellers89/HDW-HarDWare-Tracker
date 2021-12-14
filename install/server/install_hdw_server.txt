@@ -1,0 +1,15 @@
+### Install steps for web server/LP (incomplete)
+
+sudo apt update && sudo apt install nginx php-fpm php-mysql mariadb-server
+
+# Baseline and harden nginx.conf (make sure php fpm sock is up)
+# *** HIGHLY recommend configuring HTTPS instead of HTTP ***
+
+# Copy webroot docs to nginx webroot
+# *** Highly recommend NOT placing db_creds in the webroot!!! *** 
+
+# mariadb/mysql steps
+1. create database
+2. create user
+3. grant user privileges to database
+4. create tables (see create_table_config.txt and create_table_report.txt)

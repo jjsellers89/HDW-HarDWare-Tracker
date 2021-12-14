@@ -1,0 +1,34 @@
+# Use the following if you are using the Waveshare Pi HAT
+cat << EOF > /home/pi/pi_gpio_init.sh
+echo "4" > /sys/class/gpio/export
+sleep 0.1
+echo "out" > /sys/class/gpio/gpio4/direction
+echo "0" > /sys/class/gpio/gpio4/value
+EOF
+#
+chmod 755 /home/pi/pi_gpio_init.sh
+sudo vim /etc/rc.local
+    sh /home/pi/pi_gpio_init.sh # add this line before exit code 0
+#
+# ENABLE UART
+grep "enable_uart=1" /boot/config.txt || sudo bash -c 'echo "enable_uart=1" >> /boot/config.txt'
+sudo raspi-config # Interfaces, serial, no (accessible), yes (enable)
+sudo reboot
+#
+sudo apt install ppp
+sudo cp /etc/ppp/peers/provider /etc/ppp/peers/gprs
+sudo sed -i 's/user "myusername@realm"//' /etc/ppp/peers/gprs
+sudo sed -i 's^/etc/chatscripts/pap -T \*\*\*\*\*\*\*\*^/etc/chatscripts/gprs^' /etc/ppp/peers/gprs
+sudo sed -i 's^/dev/modem^/dev/ttyS0^' /etc/ppp/peers/gprs
+sudo bash -c 'echo "
+# Custom PPP GPRS commands
+nocrtscts
+debug
+nodetach
+ipcp-accept-local
+ipcp-accept-remote
+" >> /etc/ppp/peers/gprs'
+#
+sudo cat /etc/ppp/peers/gprs
+#
+sudo pppd call gprs &

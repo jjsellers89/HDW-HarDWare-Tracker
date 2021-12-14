@@ -1,0 +1,46 @@
+### Auto-install script in progress, please do these steps manually at this time
+#!/bin/bash
+read -sp "[+] Remember: Run this with sudo/root before proceeding... Press enter to continue or CTRL+C to quit."
+
+# Install necessary packages
+apt update && apt upgrade
+apt install screen aircrack-ng gpsd gpsd-clients dos2unix ppp wireguard git macchanger vim iptables-persistent
+
+# Disable gps services - hdw_checks will configure gpsd
+sudo systemctl disable gpsd.socket
+sudo systemctl stop gpsd.socket
+
+# Hardcode hdw0 as the name of the external wifi nic (replace xx's with alfa card mac address)
+sudo bash -c 'cat > /etc/udev/rules.d/10-network-device.rules << EOF
+        SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="xx:xx:xx:xx:xx:xx", NAME="hdw0"
+EOF'
+
+# PPP/GPRS (if using HAT)
+- Refer to install_ppp-gprs.txt for installation steps
+
+# Harden
+- Good time to insert your iptables rules. 
+- Disable unnecessary services.
+- Set hostname
+
+# Stage HDW node files
+- copy node files to /hdw (or wherever you prefer)
+sudo mkdir /var/log/hdw/
+sudo touch /var/log/hdw/checks.log
+sudo bash -c 'cat >> /etc/rc.local << EOF
+/usr/bin/echo -e "\n### "`date +%Y-%m-%d_%H%M`"\n" >> /var/log/hdw/checks.log
+/hdw/hdw_checks.sh >> /var/log/hdw/checks.log
+EOF'
+
+### Stage a new HDW node entry into the database (only after you install/configure your HDW server)
+# This will eventually be turned into a auto-script...
+read -p "[+] What is the new Node ID you will be assigning? " NewNodeID
+mysql -u hdw_admin -p -D hdw -e "insert into config (NodeID) values ('$NewNodeID');"
+mysql -u hdw_admin -p -D hdw -e "update config set report_URL='http://localhost/hdw/reporting.php', checkin_URL='http://localhost/hdw/checkin.php?NodeID=$NewNodeID', heartbeat_URL='http://localhost/hdw/heartbeat.php' where NodeId=$NewNodeID;"
+- For convenience, create a "make new node" link available on the nav pane (on dashboard web page)
+# node.conf needs the following at a minimum (node will retrieve the full node.conf after its first check-in): 
+	NodeID=
+	heartbeat_URL=
+	checkin_URL= # Don't forget to add ?NodeID=<nodeid> to the end of the checkin_URL
+
+# Run hdw_checks.sh to see if HDW server is reachable from your node
