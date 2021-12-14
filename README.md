@@ -11,5 +11,3 @@ Equipment used:
 - GlobalSat BU-353-S4 USB receiver
 - Waveshare SIM800C (GSM/GPRS) HAT
 - VPS provider of your choice (I used AWS)
-
-*Code will be uploaded soon*  
